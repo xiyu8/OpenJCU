@@ -36,6 +36,7 @@ import com.example.openjcu.m_home.home_map.BNDemoMainActivity;
 import com.example.openjcu.m_home.home_map.PositionGeoActivity;
 import com.example.openjcu.m_home.home_map.RoutePlanActivity;
 import com.example.openjcu.m_home.info_search.InfoSearchMainAct;
+import com.example.openjcu.m_home.info_search.SuccessActivity;
 import com.example.openjcu.m_home.l_f.LostfoundMainAct;
 import com.example.openjcu.m_home.playground.PlaygroundMainAct;
 import com.example.openjcu.m_home.position.PositionMainAct;
@@ -64,12 +65,17 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.example.openjcu.m_home.info_search.SuccessActivity.actionStart;
+import static com.example.openjcu.tool.NetRequest.getUsername;
 import static com.example.openjcu.tool.NetRequest.isOnline;
+import static com.example.openjcu.tool.NetRequest.loginStatus;
+import static com.example.openjcu.tool.NetRequest.tureName;
+import static com.example.openjcu.tool.NetRequest.username;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link HomeFragment.OnFragmentInteractionListener} interface
+ * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -119,7 +125,7 @@ public class HomeFragment extends Fragment{
     private int currentItem = 5000;
     boolean nowAction = false;// 当前用户正在滑动视图
     private Handler handler = new Handler() {      //定时器用于更新dots的handler
-        public void handleMessage(android.os.Message msg) {
+        public void handleMessage(Message msg) {
             viewPager.setCurrentItem(currentItem);
         };
     };
@@ -131,21 +137,26 @@ public class HomeFragment extends Fragment{
     LinearLayout go,infoSearch,communication,recruit,abroad,postgraduate,playground,l_f,position;
     OnFragViewClickListener lst;
     /************************************************************************************************************/
-
+    String app_url;
 
     @Override   //在Activity的onCreateView中写的在Fragment的这里写
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         A= (MainActivity) getActivity();   //在Fragment中找到活动
+        app_url = A.getResources().getString(R.string.app_url);
         init(A);
       //  viewPager.setCurrentItem(currentItem+1);
 
     }
 
     private void init(Activity A) {
+        addr1 = app_url+"fragment_viewpager_string.json";
+        addr = app_url;
+
         /* **************************ViewPager相关init***************************************** *//*  */
         //ViewPager Titil相关
         pagerTabStrip=(PagerTabStrip) A.findViewById(R.id.pagertab);
+
         pagerTabStrip.setDrawFullUnderline(false);
         pagerTabStrip.setTextSpacing(50);
         pagerTabStrip.setVisibility(View.VISIBLE);
@@ -229,72 +240,10 @@ public class HomeFragment extends Fragment{
         });
     }
 
-    //    public void ref(){
-////        new Thread(new Runnable() {
-////            @Override
-////            public void run() {
-////
-////
-////                try {
-////                    Thread.sleep(500);
-////                } catch (InterruptedException e) {
-////                    e.printStackTrace();
-////                }
-////                A.runOnUiThread(new Runnable() {
-////                    @Override
-////                    public void run() {
-////                        swp.setRefreshing(false);
-////                    }
-////                });
-////
-////
-////            }
-////        }).start();
-//
-//
-//
-//
-////        NetRequest.sendRequest("http://192.168.155.1/www/OpenJCU/p1.png",new okhttp3.Callback(){
-////
-////            @Override
-////            public void onFailure(Call call, IOException e) {
-////
-////            }
-////
-////            @Override
-////            public void onResponse(Call call, Response response) throws IOException {
-////                final byte[] Picture_bt = response.body().bytes();
-////                //通过handler更新UI
-////                A.runOnUiThread(new Runnable() {
-////                    @Override
-////                    public void run() {
-////
-////                        //使用BitmapFactory工厂，把字节数组转化为bitmap
-////                        Bitmap bitmap = BitmapFactory.decodeByteArray(Picture_bt, 0, Picture_bt.length);
-////                        //通过imageview，设置图片
-////                        ((ImageView)v2.findViewById(R.id.pg_im2)).setImageBitmap(bitmap);
-////                        swp.setRefreshing(false);
-////                    }
-////                });
-////
-////            }
-////        },A);
-//    }
     public void ref() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-//                try {
-//                    Thread.sleep(500);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        swp.setRefreshing(false);
-//                    }
-//                });
                 int a=requestLogic();
                 Log.e("OpenJCU",")))))))))))))))))))))"+a);
                 if(a==0){
@@ -311,174 +260,6 @@ public class HomeFragment extends Fragment{
 
     /***********************************网络请求**********************************************/
 
-//    ParseJsonForVersion parseJsonForVersion=new ParseJsonForVersion();
-//    ParseJsonForResource parseJsonForResource=new ParseJsonForResource();
-//    public void requestLogic() {
-//        //是否有网络连接
-//        if (isOnline(A)) {  //如果有
-//
-//            // 获取SharedPreferences中的OpenJCU文件的Editor
-//            SharedPreferences preferences = A.getSharedPreferences("OpenJCU", A.MODE_PRIVATE);
-//            SharedPreferences.Editor editor = preferences.edit();
-//
-//            // 看fragment_home_ver字段中是否有值、有什么值    //读取fragment_home_ver字段，如果没有这个字段，创建，并给这个字段赋值0.00
-//            String haveFragment_home_ver = preferences.getString("fragment_home_ver", "0.00");
-//
-//            // 如果没有这个字段的值
-//            if (haveFragment_home_ver.equals("0.00")) {  //请求版本，更新本地版本，请求资源，更新呈现资源
-//                s1=requestVersion();
-//                Log.e("OpenJCU","dd99999999999999999999999999999"+s1);
-//                editor.putString("fragment_home_ver",s1);  editor.apply();//更新本地版本；
-//                requestResourceAndUpdateUI("http://192.168.155.1/www/OpenJCU/","http://192.168.155.1/www/OpenJCU/fragment_viewpager_string.json",0);
-//                //requestVertion\如果没有这个字段的值，直接请求网络的数据，并写入值的信息作为本地版本号
-//            } else {  //1请求版本，比较版本信息，2请求版本，比较版本信息，更新本地版本，请求资源，更新呈现资源
-//                //如果有这个字段的值，请求网络，比较这个值和网络请求下来的版本信息
-//                s1=requestVersion();
-//                Log.e("OpenJCU","99999999999999999999999999999"+s1);
-//                Log.e("OpenJCU","99999999999999999999999999999"+haveFragment_home_ver);
-//                if(s1.equals(haveFragment_home_ver)){
-//                    requestResourceAndUpdateUI("http://192.168.155.1/www/OpenJCU/","http://192.168.155.1/www/OpenJCU/fragment_viewpager_string.json",1);
-//                } else {
-//                    editor.putString("fragment_home_ver",s1);  editor.apply();  //更新本地版本；
-//                    requestResourceAndUpdateUI("http://192.168.155.1/www/OpenJCU/","http://192.168.155.1/www/OpenJCU/fragment_viewpager_string.json",0);
-//                }
-//
-//            }
-//        } else {        //如果没有
-//            Toast.makeText(A, "请连接网络", Toast.LENGTH_SHORT).show();
-//            requestResourceAndUpdateUI("http://192.168.155.1/www/OpenJCU/","http://192.168.155.1/www/OpenJCU/fragment_viewpager_string.json",1);
-//        }
-//    }
-
-
-
-//    String s1;  //用来存解析vresion_Json的结果
-//    //request resource's version
-//    public String requestVersion() {
-//        s1=null;
-//        Request request = new Request.Builder()
-//                    //强制使用网络
-//                       .cacheControl(CacheControl.FORCE_NETWORK)
-//                       //强制使用缓存
-//                      // .cacheControl(CacheControl.FORCE_CACHE)
-//                       .url("http://192.168.155.1/www/OpenJCU/update.json").build();
-//        client.newCall(request).enqueue(new okhttp3.Callback(){
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                Log.e("OpenJCU", "请求资源版本信息失败");
-//            }
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                //s1 =parseJSON(response.body().string());
-//                String data=response.body().string();
-//                ParseJsonForVersion pj=new ParseJsonForVersion();
-//                s1=pj.parseJSON(data);
-//            }
-//        });
-//        while (s1==null) {   //接口的回调为异步，在接口回调中操作的变量时间不够可能没来得及赋值
-//
-//        }
-//        return s1;
-//    }
-
-
-//    OkHttpClient client;
-//    Request request[]=new Request[6];
-//    Request request1[]=new Request[6];   int flag=1;
-//    String addr = "http://192.168.155.1/www/OpenJCU/";
-//    String addr1 = "http://192.168.155.1/www/OpenJCU/fragment_viewpager_string.json";
-//    Bitmap bitmap[]=new Bitmap[5];
-//    //缓存路径、缓存区的大小(没网时读缓存)
-//    public void requestResourceAndUpdateUI(String addr,String addr1, int formWhere){
-//        if(formWhere==0){
-//            //强制使用网络
-//            for(int i=0;i<=5;i+=1) {
-//                final int j=i;
-////                while (flag==0){  }
-////                    flag=0;
-//
-//                Log.e("OpenJCU","44444444444444444444444444444444444");
-//                client.newCall(request[i]).enqueue(new Callback() {
-//                    @Override
-//                    public void onFailure(Call call, IOException e) {
-//                        Log.e("OpenJCU","请求资源失败");
-//                    }
-//                    @Override
-//                    public void onResponse(Call call, Response response) throws IOException {
-//                        Log.e("OpenJCU","66666666666666666666666666666666666");
-//
-//                        if (j == 0) {
-//                            String data=response.body().string();
-//                            String[] resouce=(new ParseJsonForResource()).parseStringJSON(data);
-//                            for(int i=0;i<10;i++){
-//                                if(i<5)  home_pager_title[i] = resouce[i];
-//                                else {
-//                                    home_pager_surl[i - 5] = resouce[i];
-//                                }
-//                            }
-//                        } else {
-//                            final byte[] Picture_bt1 = response.body().bytes();
-//                            bitmap[j-1] = BitmapFactory.decodeByteArray(Picture_bt1, 0, Picture_bt1.length);
-//                        }
-//                        flag=1;
-//                    }
-//                });
-//            }
-//            while (flag==0) {  }
-//                ((ImageView) v1.findViewById(R.id.pg_im1)).setImageBitmap(bitmap[0]);
-//                ((ImageView) v2.findViewById(R.id.pg_im2)).setImageBitmap(bitmap[1]);
-//                ((ImageView) v3.findViewById(R.id.pg_im3)).setImageBitmap(bitmap[2]);
-//                ((ImageView) v4.findViewById(R.id.pg_im4)).setImageBitmap(bitmap[3]);
-//                ((ImageView) v5.findViewById(R.id.pg_im5)).setImageBitmap(bitmap[4]);
-//
-//            swp.setRefreshing(false);
-//
-//        }else{
-//            //强制使用缓存
-//        //    flag=0;
-//            for(int i=0;i<=5;i+=1) {
-//                final int j=i;
-////                while (flag==0){   }
-////                flag=0;
-//
-//                Log.e("OpenJCU","44444444444444444444444444444444444");
-//                client.newCall(request1[i]).enqueue(new Callback() {
-//                    @Override
-//                    public void onFailure(Call call, IOException e) {  Log.e("OpenJCU","请求缓存资源失败");   }
-//                    @Override
-//                    public void onResponse(Call call, Response response) throws IOException {
-//                        Log.e("OpenJCU","66666666666666666666666666666666666");
-//
-//                        if (j == 0) {
-//                            String data=response.body().string();
-//                            String[] resouce=(new ParseJsonForResource()).parseStringJSON(data);
-//                            for(int i=0;i<10;i++){
-//                                if(i<5)  home_pager_title[i] = resouce[i];
-//                                else {
-//                                    home_pager_surl[i - 5] = resouce[i];
-//                                }
-//                            }
-//                        } else {
-//                            final byte[] Picture_bt1 = response.body().bytes();
-//                            bitmap[j-1] = BitmapFactory.decodeByteArray(Picture_bt1, 0, Picture_bt1.length);
-//                        }
-//                        if(j==5){
-//                            Log.e("OpenJCU","aaaaaaaaaaaaaaa");
-//                        flag=1;}
-//                    }
-//                });
-//            }
-//            while (flag==0) {  }
-//            ((ImageView) v1.findViewById(R.id.pg_im1)).setImageBitmap(bitmap[0]);
-//            ((ImageView) v2.findViewById(R.id.pg_im2)).setImageBitmap(bitmap[1]);
-//            ((ImageView) v3.findViewById(R.id.pg_im3)).setImageBitmap(bitmap[2]);
-//            ((ImageView) v4.findViewById(R.id.pg_im4)).setImageBitmap(bitmap[3]);
-//            ((ImageView) v5.findViewById(R.id.pg_im5)).setImageBitmap(bitmap[4]);
-//
-//            swp.setRefreshing(false);
-//        }
-//
-//    }
 
     private Handler mHandler = new Handler() {
 
@@ -546,7 +327,7 @@ public class HomeFragment extends Fragment{
                 .cacheControl(CacheControl.FORCE_NETWORK)
                 //强制使用缓存
                 // .cacheControl(CacheControl.FORCE_CACHE)
-                .url("http://192.168.155.1/www/OpenJCU/update.json").build();
+                .url(app_url+"update.json").build();
         try {
             Response responseVersion=client.newCall(request).execute();
             String data=responseVersion.body().string();
@@ -568,8 +349,8 @@ public class HomeFragment extends Fragment{
     OkHttpClient client;
     Request request[]=new Request[6];
     Request request1[]=new Request[6];   int flag=1;
-    String addr = "http://192.168.155.1/www/OpenJCU/";
-    String addr1 = "http://192.168.155.1/www/OpenJCU/fragment_viewpager_string.json";
+    String addr;
+    String addr1;
     Bitmap bitmap[]=new Bitmap[5];
     String pagerText[]=new String[5];
     String pagerUrl[]=new String[5];
@@ -796,15 +577,19 @@ public class HomeFragment extends Fragment{
                 case R.id.go:
                     Intent in1 = new Intent(A, GoMainActivity.class); A.startActivity(in1); break;
                 case R.id.info_search:
-                    Intent in2 = new Intent(A, InfoSearchMainAct.class); A.startActivity(in2); break;
+                    Intent in2 = new Intent(A, SuccessActivity.class); actionStart(A,tureName,getUsername(),loginStatus); break;
                 case R.id.conmmunication:
                     Intent in3 = new Intent(A, CommunicationMainAct.class); A.startActivity(in3); break;
                 case R.id.recruit:
                     Intent in4 = new Intent(A, RecruitMainAct.class); A.startActivity(in4); break;
                 case R.id.abroad:
-                    Intent in5 = new Intent(A, AbroadMainAct.class); A.startActivity(in5); break;
+//                    Intent in5 = new Intent(A, AbroadMainAct.class); A.startActivity(in5);
+                    break;
+
                 case R.id.postgraduate:
-                    Intent in6 = new Intent(A, PostgraduateMainAct.class); A.startActivity(in6); break;
+//                    Intent in6 = new Intent(A, PostgraduateMainAct.class);
+//                    A.startActivity(in6);
+                    break;
                 case R.id.playground:
                     Intent in7 = new Intent(A, PlaygroundMainAct.class); A.startActivity(in7); break;
                 case R.id.position:

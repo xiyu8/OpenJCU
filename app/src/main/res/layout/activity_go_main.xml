@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_dinner_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#cccccc"
+    android:orientation="vertical"
     tools:context="com.example.openjcu.m_home.go.GoMainActivity">
-    <!--ScrollView套LeanearView实现滚动-->
-
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+<!--Toolbar 自动加载 res/menu 的 toolbar.xml 用于显示-->
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:layout_scrollFlags="scroll|enterAlways|snap" />
+    </android.support.design.widget.AppBarLayout>
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swp_reflash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
+        <!--ScrollView套LeanearView实现滚动-->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -101,13 +116,194 @@
         </LinearLayout>
     </FrameLayout>
     </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#edffff">
+
+        <!--第二栏主信息-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_weight="1"
+                android:layout_height="60dp"
+                android:background="#fff"
+                android:layout_marginLeft="15dp"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:id="@+id/recruit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#fff"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="8dp"
+                        android:src="@drawable/bgi1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="校园活动"
+                        android:textColor="#0ba397"
+                        android:textSize="11dp" />
+
+                    <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="center"-->
+                    <!--android:text="**********"-->
+                    <!--android:textColor="#aaaaaa"-->
+                    <!--android:textSize="13sp" />-->
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_weight="1"
+                android:layout_height="60dp"
+                android:background="#c9c9c9"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="0dp"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:id="@+id/abroad"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#fff"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="8dp"
+                        android:src="@drawable/bgi1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="美食"
+                        android:textColor="#0ba397"
+                        android:textSize="11dp" />
+
+                    <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="center"-->
+                    <!--android:text="**************"-->
+                    <!--android:textColor="#aaaaaa"-->
+                    <!--android:textSize="13sp" />-->
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_weight="1"
+                android:layout_height="60dp"
+                android:background="#fff"
+                android:layout_marginRight="15dp"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:id="@+id/cdw"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#fff"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/csdc"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="8dp"
+                        android:src="@drawable/bgi1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="玩"
+                        android:textColor="#0ba397"
+                        android:textSize="11dp" />
+
+                    <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="center"-->
+                    <!--android:text="**************"-->
+                    <!--android:textColor="#aaaaaa"-->
+                    <!--android:textSize="13sp" />-->
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_weight="1"
+                android:layout_height="60dp"
+                android:background="#fff"
+                android:layout_marginRight="5dp"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:id="@+id/postgraduate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#fff"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="8dp"
+                        android:src="@drawable/bgi1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="生活中心"
+                        android:textColor="#0ba397"
+                        android:textSize="11dp"
+                        android:id="@+id/textView2" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
     <com.example.openjcu.m_home.go.CustomerExpandableListView
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:id="@+id/expand_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -124,4 +320,4 @@
     </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
 
-</RelativeLayout>
+</LinearLayout>

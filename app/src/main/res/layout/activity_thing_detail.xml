@@ -1,9 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#dcdcdc"
+    android:orientation="vertical"
     tools:context="com.example.openjcu.m_home.l_f.ThingDetailActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--Toolbar 自动加载 res/menu 的 toolbar.xml 用于显示-->
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/memo_commit_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:layout_scrollFlags="scroll|enterAlways|snap" />
+    </android.support.design.widget.AppBarLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#fff"
+            android:layout_margin="5dp"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/d_l_f_flag"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/bgi1"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                
+
+                <TextView
+                    android:id="@+id/d_l_f_time"
+                    android:gravity="bottom"
+                    android:textSize="12sp"
+                    android:textColor="#888"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:layout_alignTop="@+id/d_l_f_title"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:id="@+id/d_l_f_content"
+                    android:padding="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:layout_below="@+id/d_l_f_flag"
+                    android:layout_marginTop="7dp"
+                    android:text="TextView"
+                    android:textSize="14sp"
+                    android:textColor="#444"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:id="@+id/d_l_f_title"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:textColor="#333"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:layout_above="@+id/d_l_f_content"
+                    android:layout_toRightOf="@+id/d_l_f_flag"
+                    android:layout_toEndOf="@+id/d_l_f_flag"
+                    android:layout_marginLeft="85dp"
+                    android:layout_marginStart="85dp" />
+            </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/l_f_showPicDiv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:visibility="gone"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/theme_pic1"
+                        android:onClick="onClick"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="9dp"
+                        android:paddingRight="7dp"
+                        android:paddingLeft="7dp"
+                        android:background="@drawable/shadowbgi_light"
+                        android:visibility="gone"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="125dp" />
+                    <ImageView
+                        android:id="@+id/theme_pic2"
+                        android:onClick="onClick"
+                        android:visibility="gone"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="9dp"
+                        android:paddingRight="7dp"
+                        android:paddingLeft="7dp"
+                        android:background="@drawable/shadowbgi_light"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="125dp" />
+                </LinearLayout>
+                <ImageView
+                    android:id="@+id/theme_pic3"
+                    android:onClick="onClick"
+                    android:background="@drawable/shadowbgi_light"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="9dp"
+                    android:paddingRight="7dp"
+                    android:paddingLeft="7dp"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    
+</LinearLayout>

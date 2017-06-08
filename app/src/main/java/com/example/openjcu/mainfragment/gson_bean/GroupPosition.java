@@ -5,4 +5,32 @@ package com.example.openjcu.mainfragment.gson_bean;
  */
 
 public class GroupPosition {
+
+    String memberId;
+    String memberPosition;
+    String groupId;
+
+    public String getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
+    }
+
+    public String getMemberPosition() {
+        return memberPosition;
+    }
+
+    public void setMemberPosition(String memberPosition) {
+        this.memberPosition = memberPosition;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
 }

@@ -13,14 +13,13 @@ public class Tab1Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         setContentView(R.layout.tab1_activity_lyt);
         init();
     }
 
     public void init() {
         wb = (WebView) findViewById(R.id.wb);
-        wb.loadUrl("http://192.168.155.1/www/a.php");
+        wb.loadUrl("http://192.168.191.1/www/a.php");
         //本地文件用：wb.loadUrl("file:///android_asset/XX.html");
     }
 }

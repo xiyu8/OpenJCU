@@ -1,17 +1,21 @@
-package com.example.myapplication;
+package com.example.openjcu.m_home.info_search;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.openjcu.R;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -19,10 +23,8 @@ import org.jsoup.select.Elements;
 import org.litepal.LitePal;
 import org.litepal.crud.DataSupport;
 
-
 import java.io.IOException;
 import java.util.List;
-
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -30,7 +32,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static com.example.myapplication.MainActivity.okHttpClient;
 
 public class SuccessActivity extends AppCompatActivity implements View.OnClickListener {
     private Button getCourse;
@@ -43,6 +44,7 @@ public class SuccessActivity extends AppCompatActivity implements View.OnClickLi
     public String cookie;
     public String code;
     private Button getseat;
+    public OkHttpClient okHttpClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +55,11 @@ public class SuccessActivity extends AppCompatActivity implements View.OnClickLi
         code=intent.getStringExtra("xh");
         cookie=intent.getStringExtra("setCookie");
         initView();
+        if(studentName!=null) {
+            getCourse();
+        }
     }
     private void initView(){
-        getCourse=(Button)findViewById(R.id.getCourse);
-        getCourse.setOnClickListener(this);
-        getseat=(Button)findViewById(R.id.getseat);
-        getseat.setOnClickListener(this);
         SharedPreferences preferences = getSharedPreferences(SHAREDPREFERENCES_NAME, MODE_PRIVATE);
         isFirstIn = preferences.getBoolean("isFirstIn", true);
         if (isFirstIn) {
@@ -66,6 +67,20 @@ public class SuccessActivity extends AppCompatActivity implements View.OnClickLi
             message.what = 3;
             handler.sendMessage(message);
         }
+
+        List<Curriculum>curricula= DataSupport.findAll(Curriculum.class);
+        for (Curriculum curriculum1:curricula){
+            String str1=curriculum1.getLessons();
+            Log.i("AAAAAAAA",str1);
+            int inti=curriculum1.getDay();
+            int intj=curriculum1.getSection();
+            lesson = (TextView) findViewById(lessons[inti][intj]);
+            lesson.setText(str1);
+            int n = 0 + (int) (Math.random() * 9);
+            //lesson.setBackground(R.drawable.text_view_border);
+            lesson.setBackgroundColor(Color.parseColor(color[n]));
+        }
+
     }
     private int[][] lessons={
             {R.id.course10,R.id.course11,R.id.course12,R.id.course13,R.id.course14,R.id.course15,R.id.course16},
@@ -78,12 +93,7 @@ public class SuccessActivity extends AppCompatActivity implements View.OnClickLi
     public String[] color={"#FF4500","#F5DEB3","#FFF8DC","#FFFFE0","#6B8E23","#20B2AA","#87CEFA","#FFB6C1","#f6e1a0"};
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.getCourse:
-                getCourse();
-                break;
-            case  R.id.getseat:
-                //LitePal.deleteDatabase(Curriculum);
-                break;
+            default:break;
         }
     }
     public static void actionStart(Context context,String xsxm,String xh,String setCookie){
@@ -170,18 +180,7 @@ public class SuccessActivity extends AppCompatActivity implements View.OnClickLi
                     Toast.makeText(SuccessActivity.this, "网络出现了问题", Toast.LENGTH_SHORT).show();
                     break;
                 case 3:
-                    List<Curriculum>curricula= DataSupport.findAll(Curriculum.class);
-                    for (Curriculum curriculum1:curricula){
-                        String str1=curriculum1.getLessons();
-                        Log.i("AAAAAAAA",str1);
-                        int inti=curriculum1.getDay();
-                        int intj=curriculum1.getSection();
-                        lesson = (TextView) findViewById(lessons[inti][intj]);
-                        lesson.setText(str1);
-                        int n = 0 + (int) (Math.random() * 9);
-                        //lesson.setBackground(R.drawable.text_view_border);
-                        lesson.setBackgroundColor(Color.parseColor(color[n]));
-                    }
+
                     break;
             }
         }

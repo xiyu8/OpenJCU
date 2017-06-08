@@ -3,6 +3,6 @@
     <dbname value="BookStore"></dbname>
     <version value="1"></version>
     <list>
-        <mapping class="com.example.myapplication.Curriculum"></mapping>
+        <mapping class="com.example.openjcu.m_home.info_search.Curriculum"></mapping>
     </list>
 </litepal>

@@ -13,7 +13,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="280dp"
         android:background="@drawable/shadowbgi_light"
         android:orientation="vertical"
         android:layout_weight="0.44">
@@ -48,9 +48,7 @@
                 android:layout_alignParentTop="true"
                 android:hint="输入标题"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:layout_toRightOf="@+id/myTitlel"
-                android:layout_toEndOf="@+id/myTitlel" />
+                android:inputType="textPersonName"/>
 
             <!--<EditText-->
                 <!--android:id="@+id/myTitle"-->
@@ -70,7 +68,7 @@
             <EditText
                 android:id="@+id/myContent"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="220dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
@@ -99,19 +97,12 @@
         <LinearLayout
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
             android:background="#fff">
-        <Button
-            android:id="@+id/addPic"
-            android:onClick="onClick"
-            android:layout_height="40dp"
-            android:layout_width="100dp"
-            android:gravity="center"
-            android:visibility="gone"
-            android:text="添加图片"/>
+
             <ImageView
                 android:id="@+id/previewUploadPic1"
                 android:layout_width="45dp"
@@ -134,6 +125,89 @@
                 android:onClick="onClick"
                 android:background="@drawable/addpic"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#fff">
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+            <RadioGroup
+                android:id="@+id/area_choose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#ddd"
+                android:orientation="horizontal" >
+                <RadioButton
+                    android:id="@+id/dz"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="电子" />
+
+                <RadioButton
+                    android:id="@+id/wy"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="外语" />
+                <RadioButton
+                    android:id="@+id/ck"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="财会" />
+
+                <RadioButton
+                    android:id="@+id/jg"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="建管" />
+                    <RadioButton
+                        android:id="@+id/jx"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="机械" />
+
+
+                <RadioButton
+                android:id="@+id/wch"
+                    android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="文传" />
+
+                <RadioButton
+                    android:id="@+id/tm"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="土木" />
+                <RadioButton
+                android:id="@+id/ysh"
+                    android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="艺术" />
+                    <RadioButton
+                        android:id="@+id/jk"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="计科" />
+
+
+            </RadioGroup>
+            </HorizontalScrollView>
+            </LinearLayout>
 
 
 
@@ -143,18 +217,19 @@
         android:layout_height="0dp"
         android:gravity="bottom"
         android:layout_weight="1">
+
         <Button
             android:id="@+id/commit"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginBottom="8dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="#ff5a5a"
             android:onClick="onClick"
-            android:textSize="20sp"
-            android:textColor="#fff"
             android:text="发          布"
-            android:background="#ff5a5a"/>
+            android:textColor="#fff"
+            android:textSize="20sp" />
     </LinearLayout>
 
 

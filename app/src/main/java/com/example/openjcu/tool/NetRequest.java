@@ -2,7 +2,11 @@ package com.example.openjcu.tool;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.KeyguardManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -11,6 +15,7 @@ import android.telephony.TelephonyManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
@@ -61,6 +66,7 @@ public class NetRequest {
     static public String username=null;
     static public String pwd=null;
     static public String tureName=null;
+    static public String loginStatus=null;
 
     public static String getUserId() {
         return userId;
@@ -130,21 +136,10 @@ public class NetRequest {
 
     //判断当前是否有网络连接
     public static boolean isOnline(Context context) {
-
-        ConnectivityManager manager = (ConnectivityManager) context
-
-                .getSystemService(Activity.CONNECTIVITY_SERVICE);
-
+        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Activity.CONNECTIVITY_SERVICE);
         NetworkInfo info = manager.getActiveNetworkInfo();
-
-        if (info != null && info.isConnected()) {
-
-            return true ;
-
-        }
-
+        if (info != null && info.isConnected()) {return true ;}
         return false ;
-
     }
 
     //判断当前设备是否为手机
@@ -169,6 +164,48 @@ public class NetRequest {
         }
         return deviceId;
     }
+
+
+
+   // 判断当前App处于前台还是后台状态
+    public static boolean isApplicationBackground( final Context context) {
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        @SuppressWarnings ( "deprecation" )
+        List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks( 1 );
+        if (!tasks.isEmpty()) {
+            ComponentName topActivity = tasks.get( 0 ).topActivity;
+            if (!topActivity.getPackageName().equals(context.getPackageName())) {return true ;}
+        }
+        return false ;
+    }
+
+
+  //  需要添加权限
+//
+//
+//&lt;uses-permission
+//
+//    android:name= "android.permission.GET_TASKS" />
+
+
+   // 判断当前手机是否处于锁屏(睡眠)状态
+    public static boolean isSleeping(Context context) {
+        KeyguardManager kgMgr = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+        boolean isSleeping = kgMgr.inKeyguardRestrictedInputMode();
+        return isSleeping;
+    }
+
+
+    //主动回到Home，后台运行
+    public static void goHome(Context context) {
+        Intent mHomeIntent = new Intent(Intent.ACTION_MAIN);
+        mHomeIntent.addCategory(Intent.CATEGORY_HOME);
+        mHomeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+        context.startActivity(mHomeIntent);
+    }
+
+
+
 
 
 

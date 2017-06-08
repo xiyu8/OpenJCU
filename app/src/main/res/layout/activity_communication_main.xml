@@ -4,10 +4,12 @@
     android:id="@+id/activity_communication_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#dedede"
     tools:context="com.example.openjcu.m_home.communication.CommunicationMainAct"
     android:baselineAligned="false">
     <FrameLayout
         android:layout_width="match_parent"
+        android:background="#dedede"
         android:layout_height="match_parent">
         <!--Pager-->
         <LinearLayout
@@ -21,6 +23,7 @@
                 android:id="@+id/rfab_group_sample_vp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="#dedede"
                 android:layout_gravity="center_vertical"
                 >
                 <android.support.v4.view.PagerTabStrip
@@ -53,8 +56,8 @@
             rfab:rfab_color_pressed="#b0120a"
             rfab:rfab_shadow_radius="10dp"
             rfab:rfab_shadow_color="#666"
-            rfab:rfab_shadow_dx="3dp"
-            rfab:rfab_shadow_dy="5dp"
+            rfab:rfab_shadow_dx="2dp"
+            rfab:rfab_shadow_dy="3dp"
             android:layout_gravity="bottom|right"
             />
     </FrameLayout>

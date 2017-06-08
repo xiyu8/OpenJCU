@@ -15,6 +15,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -57,6 +58,8 @@ import static com.example.openjcu.tool.NetRequest.isOnline;
 
 public class GoMainActivity extends AppCompatActivity {
 
+    String app_url;
+
     /****************************************ViewPager 相关**********************************************/  //
     public ViewPager viewPager;  //viewpager
     View v1,v2,v3,v4,v5; //Pager显示的view
@@ -69,14 +72,14 @@ public class GoMainActivity extends AppCompatActivity {
     private int currentItem = 5000;
     boolean nowAction = false;// 当前用户正在滑动视图
     private Handler handler = new Handler() {      //定时器用于更新dots的handler
-        public void handleMessage(android.os.Message msg) {
+        public void handleMessage(Message msg) {
             viewPager.setCurrentItem(currentItem);
         };
     };
    /*************************************************************************************************/
 
 
-
+    Toolbar toolbar;
 
 
 
@@ -89,6 +92,18 @@ public class GoMainActivity extends AppCompatActivity {
     /****************************************ViewPager 相关**********************************************/
     public void init() {
 
+        ////////////////////
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        ActionBar actionBar=getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
+        /////////////////////
+        app_url = getResources().getString(R.string.app_url);
+
+        addr = app_url+"go/";
+        addr1 = app_url+"go/go_view_pager_string.json";
     /*****************************ViewPager相关init************************************************* *//*  */
         //ViewPager Titil相关
         pagerTabStrip=(PagerTabStrip)findViewById(R.id.pagertab);
@@ -195,9 +210,7 @@ public class GoMainActivity extends AppCompatActivity {
     //ViewPagerAdapter 构造函数参数viewlist
     public class MyViewPagerAdapter extends PagerAdapter {
         //不循环的Adapter
-
         //        private List<View> mListViews;
-//
 //        public MyViewPagerAdapter(List<View> mListViews) {
 //            this.mListViews = mListViews;
 //        }
@@ -271,8 +284,6 @@ public class GoMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_go_main);
         init();   aboutSwipeReflash();   initExpandableListView();
 
-        ActionBar actionBar=getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     public void onClick(View v) {
@@ -596,7 +607,7 @@ public class GoMainActivity extends AppCompatActivity {
                 .cacheControl(CacheControl.FORCE_NETWORK)
                 //强制使用缓存
                 // .cacheControl(CacheControl.FORCE_CACHE)
-                .url("http://192.168.155.1/www/OpenJCU/update.json").build();
+                .url(app_url+"update.json").build();
         try {
             Response responseVersion=client.newCall(request).execute();
             String data=responseVersion.body().string();
@@ -618,8 +629,8 @@ public class GoMainActivity extends AppCompatActivity {
     OkHttpClient client;
     Request request[]=new Request[6];
     Request request1[]=new Request[6];   int flag=1;
-    String addr = "http://192.168.155.1/www/OpenJCU/go/";
-    String addr1 = "http://192.168.155.1/www/OpenJCU/go/go_view_pager_string.json";
+    String addr;
+    String addr1;
     Bitmap bitmap[]=new Bitmap[5];
 
     Response responseResource;
@@ -708,189 +719,29 @@ public class GoMainActivity extends AppCompatActivity {
 
 
 
-//    public int requestLogic() {
-//        String versionResult=null;
-//        //是否有网络连接
-//        if (isOnline(GoMainActivity.this)) {  //如果有
-//
-//            // 获取SharedPreferences中的OpenJCU文件的Editor
-//            SharedPreferences preferences = getSharedPreferences("OpenJCU", MODE_PRIVATE);
-//            SharedPreferences.Editor editor = preferences.edit();
-//
-//            // 看go_pager_ver字段中是否有值、有什么值    //读取fragment_home_ver字段，如果没有这个字段，创建，并给这个字段赋值0.00
-//            String go_pager_ver = preferences.getString("go_pager_ver", "0.00");
-//
-//            // 如果没有这个字段的值
-//            if (go_pager_ver.equals("0.00")) {  //请求版本，更新本地版本，请求资源，更新呈现资源
-//                versionResult=requestVersion();  if(versionResult=="exp"){  return 0;}
-//                editor.putString("go_pager_ver",s1);  editor.apply();//更新本地版本；
-//                requestResourceAndUpdateUI("http://192.168.155.1/www/OpenJCU/go/","http://192.168.155.1/www/OpenJCU/go/go_view_pager_string.json",0);
-//                //requestVertion\如果没有这个字段的值，直接请求网络的数据，并写入值的信息作为本地版本号
-//            } else {  //1请求版本，比较版本信息，2请求版本，比较版本信息，更新本地版本，请求资源，更新呈现资源
-//                //如果有这个字段的值，请求网络，比较这个值和网络请求下来的版本信息
-//                versionResult=requestVersion();
-//                if(versionResult=="exp"){  return 0;}
-//                Log.e("OpenJCU","gg99999999999999999999999999999"+versionResult);
-//                if(versionResult.equals(go_pager_ver)){
-//                    requestResourceAndUpdateUI("http://192.168.155.1/www/OpenJCU/go/","http://192.168.155.1/www/OpenJCU/go/go_view_pager_string.json",1);
-//                } else {
-//                    editor.putString("go_pager_ver",versionResult);  editor.apply();  //更新本地版本；
-//                    requestResourceAndUpdateUI("http://192.168.155.1/www/OpenJCU/go/","http://192.168.155.1/www/OpenJCU/go/go_view_pager_string.json",0);
-//                }
-//
-//            }
-//        } else {        //如果没有
-//            Message msg=new Message(); msg.what=1;
-//            mHandler.sendMessage(msg);
-//            requestResourceAndUpdateUI("http://192.168.155.1/www/OpenJCU/go/","http://192.168.155.1/www/OpenJCU/go/go_view_pager_string.json",1);
-//        }
-//        return 1;
-//    }
-//
-//
-//
-////    String s1;  //用来存解析vresion_Json的结果
-////    //request resource's version
-////    Response responseVersion;
-////    public String requestVersion() {
-////        s1=null;
-////        Request request = new Request.Builder()
-////                //强制使用网络
-////                .cacheControl(CacheControl.FORCE_NETWORK)
-////                //强制使用缓存
-////                // .cacheControl(CacheControl.FORCE_CACHE)
-////                .url("http://192.168.155.1/www/OpenJCU/update.json").build();
-////        try {
-////            responseVersion=client.newCall(request).execute();
-////            String data=responseVersion.body().string();
-////            ParseJsonForVersion pj=new ParseJsonForVersion();
-////            s1=pj.parseGoPagerVersionJSON(data);
-////        } catch (IOException e) {
-////            //   e.printStackTrace();
-////            Log.e("OpenJCU","超时ccccccccccccccccc");
-////            return "exp";
-////        }
-////
-////        while (s1==null) {   //接口的回调为异步，在接口回调中操作的变量时间不够可能没来得及赋值
-////        }
-////        return s1;
-////    }
-////
-////
-////    String[] go_pager_url=new String[5];
-////    OkHttpClient client;
-////    Request request[]=new Request[6];
-////    Request request1[]=new Request[6];   int flag=1;
-////    String addr = "http://192.168.155.1/www/OpenJCU/go/";
-////    String addr1 = "http://192.168.155.1/www/OpenJCU/go/go_view_pager_string.json";
-////    Bitmap bitmap[]=new Bitmap[5];
-////
-////    Response responseResource;
-////
-////    //缓存路径、缓存区的大小(没网时读缓存)
-////    public void requestResourceAndUpdateUI(String addr,String addr1, int formWhere){
-////        if (formWhere == 0) {
-////            for (int i=0;i<=5;i+=1) {  //六个链接，第一个为json，其它为image
-////                try {
-////                    responseResource = client.newCall(request[i]).execute();
-////
-////                    if (i == 0) {
-////                        String data=responseResource.body().string();
-////                        String[] resouce=(new ParseJsonForResource()).parseStringJSON(data);
-////                        for(int j=0;j<10;j++){
-////                            if(j<5)  food[j] = resouce[j];
-////                            else {
-////                                go_pager_url[j - 5] = resouce[j];
-////                            }
-////                        }
-////                    } else {
-////                        final byte[] Picture_bt1 = responseResource.body().bytes();
-////                        bitmap[i-1] = BitmapFactory.decodeByteArray(Picture_bt1, 0, Picture_bt1.length);
-////                    }
-////                    flag=1;
-////
-////
-////                } catch (IOException e) {
-////                    e.printStackTrace();
-////                }
-////            }
-////            runOnUiThread(new Runnable() {
-////                @Override
-////                public void run() {
-////                    ((ImageView) v1.findViewById(R.id.pg_im1)).setImageBitmap(bitmap[0]);
-////                    ((ImageView) v2.findViewById(R.id.pg_im2)).setImageBitmap(bitmap[1]);
-////                    ((ImageView) v3.findViewById(R.id.pg_im3)).setImageBitmap(bitmap[2]);
-////                    ((ImageView) v4.findViewById(R.id.pg_im4)).setImageBitmap(bitmap[3]);
-////                    ((ImageView) v5.findViewById(R.id.pg_im5)).setImageBitmap(bitmap[4]);
-////
-////                    swp.setRefreshing(false);
-////                }
-////            });
-////
-////
-////        } else {
-////            for (int i=0;i<=5;i+=1) {
-////                try {
-////                    responseResource = client.newCall(request1[i]).execute();
-////
-////                    if (i == 0) {
-////                        String data=responseResource.body().string();
-////                        String[] resouce=(new ParseJsonForResource()).parseStringJSON(data);
-////                        for(int j=0;j<10;j++){
-////                            if(j<5)  food[j] = resouce[j];
-////                            else {
-////                                go_pager_url[j - 5] = resouce[j];
-////                            }
-////                        }
-////                    } else {
-////                        final byte[] Picture_bt1 = responseResource.body().bytes();
-////                        bitmap[i-1] = BitmapFactory.decodeByteArray(Picture_bt1, 0, Picture_bt1.length);
-////                    }
-////                    flag=1;
-////
-////
-////                } catch (IOException e) {
-////                    e.printStackTrace();
-////                }
-////            }
-////
-////            runOnUiThread(new Runnable() {
-////                @Override
-////                public void run() {
-////                    ((ImageView) v1.findViewById(R.id.pg_im1)).setImageBitmap(bitmap[0]);
-////                    ((ImageView) v2.findViewById(R.id.pg_im2)).setImageBitmap(bitmap[1]);
-////                    ((ImageView) v3.findViewById(R.id.pg_im3)).setImageBitmap(bitmap[2]);
-////                    ((ImageView) v4.findViewById(R.id.pg_im4)).setImageBitmap(bitmap[3]);
-////                    ((ImageView) v5.findViewById(R.id.pg_im5)).setImageBitmap(bitmap[4]);
-////
-////                    swp.setRefreshing(false);
-////                }
-////            });
-////        }
-////    }
-
-
-
     /*****************************************************************************************/
     /***********************************************************************************************************/
 
 
     /***********************************************************************************************************/
-    //添加toolbar menu
+    //为toolbar 指定menu
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar,menu);
         return true;
+
     }
 
     //menu点击事件的处理
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
-            case R.id.go_menu1:
-                Toast.makeText(this, "sdvgwsv", Toast.LENGTH_SHORT).show(); break;
-            case R.id.home:  finish(); break;
+            case R.id.go_menu1:  break;
+            case 16908332:  finish(); break;
+            case R.id.backup1:  break;
+            case R.id.settings:  Toast.makeText(this, "sdvgwsv_settings", Toast.LENGTH_SHORT).show(); break;
+            case R.id.delete:  break;
             default: break;
         }
-        finish();
         return true;
     }
 
@@ -913,7 +764,7 @@ public class GoMainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-        scheduledExecutorService.scheduleAtFixedRate(new GoMainActivity.ScrollTask(), 1, 3,
+        scheduledExecutorService.scheduleAtFixedRate(new ScrollTask(), 1, 3,
                 TimeUnit.SECONDS);
         super.onStart();
     }

@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.openjcu.m_home.info_search;
 
 import org.litepal.crud.DataSupport;
 
@@ -6,7 +6,7 @@ import org.litepal.crud.DataSupport;
  * Created by Administrator on 2017-04-13.
  */
 
-public class Curriculum extends DataSupport{
+public class Curriculum extends DataSupport {
     private String lessons;
     private int day;
     private int section;

@@ -7,12 +7,14 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +37,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+import java.util.zip.Inflater;
+
+import okhttp3.Cache;
+import okhttp3.CacheControl;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static com.example.openjcu.tool.Localtion.myListener;
@@ -42,7 +54,7 @@ import static com.example.openjcu.tool.Localtion.myListener;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MapFragment.OnFragmentInteractionListener} interface
+ * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link MapFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -82,9 +94,11 @@ public class MapFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+    String app_url;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -169,10 +183,27 @@ public class MapFragment extends Fragment {
         A= (MainActivity) getActivity();   //在Fragment中找到活动
         init();
         initListener();
-
     }
+
+    MyOnClickListener myOnClickListener;
+    EditText edit_chat_item;
+    Button publish_chat_item;
+    Button hideChatArea;
+    LinearLayout chatItemArea;
+    LinearLayout chatArea;
     public void init(){
-         mapView=(MapView)A.findViewById(R.id.bmapView);
+        app_url = A.getResources().getString(R.string.app_url);
+        myOnClickListener=new MyOnClickListener();
+        edit_chat_item = (EditText) A.findViewById(R.id.edit_chat_item);
+        publish_chat_item = (Button) A.findViewById(R.id.publish_chat_item);
+        hideChatArea = (Button) A.findViewById(R.id.hideChatArea);
+        chatItemArea = (LinearLayout) A.findViewById(R.id.chatItemArea);
+        chatArea = (LinearLayout) A.findViewById(R.id.chatArea);
+        publish_chat_item.setOnClickListener(myOnClickListener);
+        hideChatArea.setOnClickListener(myOnClickListener);
+
+
+        mapView=(MapView)A.findViewById(R.id.bmapView);
 
         LayoutInflater inflater=A.getLayoutInflater();
         v1 = inflater.inflate(R.layout.fragment_map_pop_window, null);
@@ -194,6 +225,85 @@ public class MapFragment extends Fragment {
         Toast.makeText(getActivity().getApplicationContext(),"22222222222",LENGTH_SHORT).show(); PositionGeo p=new PositionGeo();
 
     }
+
+    int i=0;
+    public class MyOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.hideChatArea:
+                    if(i%2==0) {chatArea.setVisibility(View.GONE); i++; }else{  chatArea.setVisibility(View.VISIBLE); i++; }
+
+                    break;
+                case R.id.publish_chat_item:
+                    if(A.teamFragment!=null) if(((A.teamFragment).groupId)!=null) sendChatItem();
+                    break;
+                default: break;
+            }
+        }
+    }
+
+    String tmp;
+    public void sendChatItem() {
+        String s=edit_chat_item.getText().toString();
+        OkHttpClient client=new OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS).cache(new Cache(new File(A.getExternalCacheDir(), "okhttpcache"), 1 * 1024 * 1024)).build();
+        Request request = new Request.Builder()
+                .cacheControl(CacheControl.FORCE_NETWORK)
+                .url(app_url+"group/chat_item_insert.php?memberId="+A.teamFragment.IMME+"&chatContent="+s).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                tmp = response.body().string();
+                A.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        edit_chat_item.setText("");
+                        Log.e("OpenJCU", tmp);
+//                LayoutInflater lf = A.getLayoutInflater().from(A);
+
+                    }
+                });
+
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public void initMap(){
         mBaiduMap=mapView.getMap();
        // mBaiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);//卫星地图
@@ -217,14 +327,12 @@ public class MapFragment extends Fragment {
 
 
 
+
     View v1;  //mapPopWindow
-
-
     /**
      * MapView 是地图主控件
      */
     private MapView mMapView;
-
     /**
      * 当前地点击点
      */

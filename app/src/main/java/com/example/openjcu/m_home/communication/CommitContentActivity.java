@@ -2,6 +2,7 @@ package com.example.openjcu.m_home.communication;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -24,6 +25,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -60,7 +63,7 @@ import static com.example.openjcu.tool.NetRequest.username;
 import static com.example.openjcu.tool.NetRequest.pwd;
 
 public class CommitContentActivity extends AppCompatActivity {
-
+        String app_url;
         private Handler handler = new Handler() {
 
         @Override
@@ -70,6 +73,7 @@ public class CommitContentActivity extends AppCompatActivity {
                     Toast.makeText(CommitContentActivity.this, "网络错误(超时)", Toast.LENGTH_SHORT).show();
                     break;
                 case 1:     // 1是无网络发过来的msg
+                    progressDialog.dismiss();
                     Toast.makeText(CommitContentActivity.this, "发布成功", Toast.LENGTH_SHORT).show();
                     finish();
                     break;
@@ -109,26 +113,43 @@ public class CommitContentActivity extends AppCompatActivity {
 
 
     EditText title,content;
-    Button commit,addPic;
+    Button commit;
     ImageView previewUploadPic1,previewUploadPic2,previewUploadPic3;
     String themeId;
+    RadioGroup area_choose; RadioButton area[]=new RadioButton[9];
     public void initView() {
+        area_choose = (RadioGroup) findViewById(R.id.area_choose);
+        app_url = getResources().getString(R.string.app_url);
         title = (EditText) findViewById(R.id.myTitle);
         content=(EditText) findViewById(R.id.myContent);
         commit = (Button) findViewById(R.id.commit);
-        addPic = (Button) findViewById(R.id.addPic);
         previewUploadPic1 = (ImageView) findViewById(R.id.previewUploadPic1);
         previewUploadPic2 = (ImageView) findViewById(R.id.previewUploadPic2);
         previewUploadPic3 = (ImageView) findViewById(R.id.previewUploadPic3);
 
 
+        area[0] = (RadioButton) findViewById(R.id.dz);  area[1] = (RadioButton) findViewById(R.id.jk); area[2] = (RadioButton) findViewById(R.id.jx);
+        area[8] = (RadioButton) findViewById(R.id.wch); area[3] = (RadioButton) findViewById(R.id.tm); area[4] = (RadioButton) findViewById(R.id.jg);
+        area[5] = (RadioButton) findViewById(R.id.ysh); area[6] = (RadioButton) findViewById(R.id.wy); area[7] = (RadioButton) findViewById(R.id.ck);
 
+    }
+
+    int category;
+    public int getCategory(){
+        int m=0;
+        for (int i=0;i<9;i++){
+            if(area[i].isChecked()){
+                m=i+1;
+            }
+        }
+        return m;
     }
 
    // String textTitle,textContent;
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.commit:
+                Log.e("OpenJCU", "FFFFFFFFFF"+getCategory());
                 if(login) {
                     String textTitle = title.getText().toString();
                     String textContent = content.getText().toString();
@@ -166,14 +187,18 @@ public class CommitContentActivity extends AppCompatActivity {
             case R.id.previewUploadPic2: handlePicture(2); break;
             case R.id.previewUploadPic3: handlePicture(3); break;
 
-            case R.id.addPic:   handlePicture(1);  break;
             default: break;
         }
     }
 
     String jsondata;
     Response response;
+    ProgressDialog progressDialog;
     public void commitTheme(final String textTitle, final String textContent){
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setTitle("正在发布");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
         if(p1) picsQuantity+=1;
         if(p2) picsQuantity+=1;
         if(p3) picsQuantity+=1;
@@ -182,7 +207,7 @@ public class CommitContentActivity extends AppCompatActivity {
             public void run() {
                 OkHttpClient client;                                                                                                                        //$_GET['username']、$_GET['pwd']、$_GET['title']、$_GET['content']、$_GET['category']
                 client = new OkHttpClient.Builder().connectTimeout(3, TimeUnit.SECONDS).cache(new Cache(new File(getExternalCacheDir(), "okhttpcache"), 100 * 1024 * 1024)).build();
-                Request request = new Request.Builder().cacheControl(CacheControl.FORCE_NETWORK).url("http://192.168.155.1/www/OpenJCU/bbs/insert_theme.php?username="+username+"&pwd="+pwd+"&title="+textTitle+"&content="+textContent+"&category=1"+"&themePics="+getPicsString()).build();
+                Request request = new Request.Builder().cacheControl(CacheControl.FORCE_NETWORK).url(app_url+"bbs/insert_theme.php?username="+username+"&pwd="+pwd+"&title="+textTitle+"&content="+textContent+"&category="+getCategory()+"&themePics="+getPicsString()).build();
 //                Request request1 = new Request.Builder().cacheControl(CacheControl.FORCE_NETWORK).url(R.string.bbsAddr+"insert_theme.php?username="+username+"&pwd="+pwd+"&title="+textTitle+"&content="+textContent+"&category=1").build();
 
                 try {
@@ -192,9 +217,6 @@ public class CommitContentActivity extends AppCompatActivity {
                     Log.e("Open", mm);
                     String temp[] = mm.split(",");
                     themeId = temp[1];
-                    Message message=new Message();
-                    message.what=1;
-                    handler.sendMessage(message);
                     //jsondata=response.body().string();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -203,6 +225,10 @@ public class CommitContentActivity extends AppCompatActivity {
                     handler.sendMessage(message);
                 }
                 requestForUpLoadFile();
+
+                Message message=new Message();
+                message.what=1;
+                handler.sendMessage(message);
 
             }
         }).start();
@@ -216,7 +242,7 @@ public class CommitContentActivity extends AppCompatActivity {
 //            public void run() {
 //                OkHttpClient client;
 //                client = new OkHttpClient.Builder().connectTimeout(3, TimeUnit.SECONDS).cache(new Cache(new File(getExternalCacheDir(), "okhttpcache"), 100 * 1024 * 1024)).build();
-//                Request request = new Request.Builder().cacheControl(CacheControl.FORCE_NETWORK).url("http://192.168.155.1/www/OpenJCU/bbs/obtain_theme_list.php?time=2017-03-29 19:53:41").build();
+//                Request request = new Request.Builder().cacheControl(CacheControl.FORCE_NETWORK).url(app_url+"bbs/obtain_theme_list.php?time=2017-03-29 19:53:41").build();
 //                try {
 //                    response = client.newCall(request).execute();
 //                    jsondata=response.body().string();
@@ -592,8 +618,8 @@ public class CommitContentActivity extends AppCompatActivity {
     //正式上传的代码
     public void requestForUpLoadFile() { //指定url
         int picsQuantity=0;
-
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.155.1/www/OpenJCU/").addConverterFactory(GsonConverterFactory.create()).build();
+        if(file1Uri==null&&file2Uri==null&file3Uri==null) return;
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(app_url).addConverterFactory(GsonConverterFactory.create()).build();
         FileUploadService service = retrofit.create(FileUploadService.class); // 创建上传的service实例
         MultipartBody.Part body[]=new MultipartBody.Part[3];
         if(file1Uri!=null) {

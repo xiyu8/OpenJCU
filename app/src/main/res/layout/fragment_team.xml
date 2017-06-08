@@ -2,13 +2,92 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#d0d0d0"
+    android:background="#dcdcdc"
     tools:context="com.example.openjcu.mainfragment.TeamFragment">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:background="?attr/colorPrimary"
+           android:orientation="horizontal"
+           android:layout_height="50dp">
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="match_parent">
+               <TextView
+                   android:layout_width="50dp"
+                   android:layout_height="match_parent"
+                   android:gravity="center"
+                   android:text="sdswd"/>
+           </LinearLayout>
+           <LinearLayout
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               android:id="@+id/aboutGroupArea"
+               android:layout_height="match_parent"
+               android:orientation="horizontal"
+               android:gravity="right">
+               <EditText
+                   android:id="@+id/group_name"
+                   android:layout_width="210dp"
+                   android:layout_height="match_parent"
+                   android:gravity="center"
+                   android:textColor="#dddddd"
+                   android:textColorHint="#45848e"
+                   android:hint="键入小分队口令"/>
+               <TextView
+                   android:id="@+id/joinGroup"
+                   android:layout_width="50dp"
+                   android:layout_height="match_parent"
+                   android:gravity="center"
+                   android:textColor="#fff"
+                   android:text="加入"/>
+               <TextView
+                   android:id="@+id/creatGroup"
+                   android:layout_width="50dp"
+                   android:textColor="#fff"
+                   android:layout_height="match_parent"
+                   android:gravity="center"
+                   android:text="创建"/>
+
+
+           </LinearLayout>
+       </LinearLayout>
+
+       <LinearLayout
+           android:id="@+id/groupArea"
+           android:layout_width="match_parent"
+           android:layout_height="0dp"
+           android:orientation="vertical"
+           android:layout_weight="1">
+
+       </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   </LinearLayout>
+</ScrollView>
 </FrameLayout>

@@ -1,9 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.openjcu.m_home.recruit.JobDetailActivity">
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--Toolbar 自动加载 res/menu 的 toolbar.xml 用于显示-->
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/memo_commit_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:layout_scrollFlags="scroll|enterAlways|snap" />
+    </android.support.design.widget.AppBarLayout>
+    <RelativeLayout
+        android:background="@drawable/rounded"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/detailFirmNameLable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text=" 公司名称：" />
+
+        <TextView
+            android:id="@+id/detailFirmName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@+id/detailFirmNameLable"
+            android:layout_toRightOf="@+id/detailFirmNameLable"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/detailJobTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/detailJobLable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text=" 岗位："
+            android:layout_below="@+id/detailFirmNameLable"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/detailJob"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/detailFirmName"
+            android:layout_alignStart="@+id/detailFirmName"
+            android:layout_alignTop="@+id/detailJobLable"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/detailJobDescripetionLable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:text="描述："
+            android:layout_below="@+id/detailJobLable"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/detailJobDescripetion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:layout_alignBaseline="@+id/detailJobDescripetionLable"
+            android:layout_alignBottom="@+id/detailJobDescripetionLable"
+            android:layout_alignLeft="@+id/detailJob"
+            android:layout_alignStart="@+id/detailJob" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/detailJobDescripetionLable"
+            android:orientation="vertical"
+            android:id="@+id/jobPicsDiv">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/theme_pic1"
+                    android:onClick="onClick"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="9dp"
+                    android:paddingRight="7dp"
+                    android:paddingLeft="7dp"
+                    android:background="@drawable/shadowbgi_light"
+                    android:visibility="gone"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="125dp" />
+                <ImageView
+                    android:id="@+id/theme_pic2"
+                    android:onClick="onClick"
+                    android:visibility="gone"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="9dp"
+                    android:paddingRight="7dp"
+                    android:paddingLeft="7dp"
+                    android:background="@drawable/shadowbgi_light"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="125dp" />
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/theme_pic3"
+                android:onClick="onClick"
+                android:background="@drawable/shadowbgi_light"
+                android:paddingTop="6dp"
+                android:paddingBottom="9dp"
+                android:paddingRight="7dp"
+                android:paddingLeft="7dp"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp" />
+            
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/detailJobTelIcon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/jobPicsDiv"
+            app:srcCompat="@drawable/apple_pic" />
+
+        <TextView
+            android:id="@+id/detailJobTel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/detailJobTelIcon"
+            android:layout_marginBottom="13dp"
+            android:layout_toEndOf="@+id/detailJobLable"
+            android:layout_toRightOf="@+id/detailJobLable"
+            android:text="TextView" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/detailJobTelIcon"
+            android:layout_marginTop="12dp"
+            app:srcCompat="@drawable/banana_pic"
+            android:layout_toLeftOf="@+id/detailJobTel"
+            android:layout_toStartOf="@+id/detailJobTel" />
+
+        <TextView
+            android:id="@+id/detailJobWorkPlace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageView3"
+            android:layout_marginBottom="10dp"
+            android:layout_toEndOf="@+id/imageView3"
+            android:layout_toRightOf="@+id/imageView3"
+            android:text="TextView" />
+
+        <ImageView
+            android:id="@+id/showJobDetailInMap"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignBottom="@+id/imageView3"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            app:srcCompat="@drawable/exit"
+            android:layout_alignTop="@+id/detailJobWorkPlace" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

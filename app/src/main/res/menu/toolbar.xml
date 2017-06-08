@@ -8,6 +8,20 @@
         android:title="search"
         app:showAsAction="always"
         />
-
+    <item
+        android:id="@+id/backup1"
+        android:icon="@drawable/bgi"
+        android:title="Backup"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/delete"
+        android:icon="@drawable/bgi"
+        android:title="Delete"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/bgi"
+        android:title="Settings"
+        app:showAsAction="never"/>
 
 </menu>

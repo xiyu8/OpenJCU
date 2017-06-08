@@ -4,6 +4,7 @@ package com.example.openjcu;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.graphics.Outline;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,6 +34,7 @@ import com.example.openjcu.m_home.home_map.PositionGeo;
 import com.example.openjcu.mainfragment.HomeFragment;
 import com.example.openjcu.mainfragment.MapFragment;
 import com.example.openjcu.mainfragment.TeamFragment;
+import com.example.openjcu.mainfragment.group_service.BeepService;
 
 import java.io.File;
 
@@ -44,6 +47,7 @@ import static com.example.openjcu.tool.NetRequest.getUsername;
 import static com.example.openjcu.tool.NetRequest.getPwd;
 
 import static android.widget.Toast.LENGTH_SHORT;
+import static com.example.openjcu.tool.NetRequest.goHome;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener,TeamFragment.OnFragmentInteractionListener, MapFragment.OnFragmentInteractionListener,HomeFragment.OnFragmentInteractionListener{
@@ -54,11 +58,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
 
-        initViews();
         fragmentManager = getFragmentManager();
         // 第一次启动时选中第0个tab
+
+        initViews();
         setTabSelection(0);
     }
 
@@ -71,6 +75,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
     public Button drawerlogin;
     public ImageView userMainIcon;
     private void initViews() {
+
         home = findViewById(R.id.message_layout);
         map = findViewById(R.id.contacts_layout);
         team = findViewById(R.id.team);
@@ -107,6 +112,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
 
         }else {
             userMainIcon.setClickable(false);
+        }
+
+        setTabSelection(1);
+        setTabSelection(2);
+
+
+        Intent in = getIntent();
+        String ln=in.getStringExtra("lauchFromNoti");
+
+        Log.e("OpenJCU", "GGGGGGGGGGGG"+ln);
+        if (ln!=null) {
+            teamFragment.requestForJoinGroup(in.getStringExtra("groupName"),in.getStringExtra("IMME"),"30.733399,103.955637");
         }
 
         //z轴阴影
@@ -155,8 +172,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
 /****************************************************************************************************************/
     private FragmentManager fragmentManager;
     public HomeFragment homeFragment;
-    private MapFragment mapFragment;
-    private TeamFragment teamFragment;
+    public MapFragment mapFragment;
+    public TeamFragment teamFragment;
 
     private View home;
     private View map;
@@ -337,6 +354,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
 
     @Override
     public void onBackPressed() {
+        goHome(MainActivity.this);
+
     }
 
+//    public ServiceConnection connection;
+//
+//    public BeepService.MyBinder bindIntent=null;
+    @Override
+    protected void onDestroy() {
+//        if(teamFragment!=null) {
+//            if (teamFragment.connection != null) {
+//                unbindService(teamFragment.connection);
+//            }
+//            if (teamFragment.bindIntent != null) {
+//                stopService(teamFragment.bindIntent);
+//            }
+//        }
+        super.onDestroy();
+    }
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#000"
     tools:context="com.example.openjcu.m_home.communication.PictureDetailActivity">
-    <com.gloomyer.zoomimageview.ZoomImageView
+    <com.example.openjcu.tool.TouchImageView
         android:id="@+id/showPictureDetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

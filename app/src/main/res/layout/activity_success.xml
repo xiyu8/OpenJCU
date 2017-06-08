@@ -1,6 +1,516 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".m_home.info_search.SuccessActivity">
+    <!--<LinearLayout-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:orientation="horizontal">-->
+    <!--<Button android:id="@+id/getCourse"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:layout_gravity="center_vertical"-->
+    <!--android:text="获取课表"/>-->
+    <!--<Button android:id="@+id/getseat"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:layout_gravity="center_vertical"-->
+    <!--android:text="查询空座位"/>-->
+    <!--</LinearLayout>-->
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="教务网" />
+
+                <Button
+                    android:id="@+id/button5"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="学工网" />
+
+                <Button
+                    android:id="@+id/button6"
+                    android:text="锦城在线"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"/>
+
+                <Button
+                    android:id="@+id/button7"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="知网" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/button8"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="学校首页" />
+
+                <Button
+                    android:id="@+id/button9"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="空闲教室" />
+
+                <Button
+                    android:id="@+id/button10"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="四六级" />
+
+                <Button
+                    android:id="@+id/button11"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="成绩" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.24">
+
+            <LinearLayout
+                android:layout_width="529dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="20dp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:text="星期一" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:text="星期二" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:text="星期三" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:text="星期四" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:text="星期五" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:gravity="center_horizontal"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="星期六" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:gravity="center_horizontal"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="星期天" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="19dp"
+                        android:layout_height="match_parent"
+                        android:text="第一节"
+                        android:gravity="center_vertical"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/course10"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/text_view_border"/>
+                    <TextView
+                        android:id="@+id/course11"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/text_view_border"/>
+
+                    <TextView
+                        android:id="@+id/course12"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/text_view_border"/>
+
+                    <TextView
+                        android:id="@+id/course13"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/text_view_border"/>
+
+                    <TextView
+                        android:id="@+id/course14"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/text_view_border"/>
+
+                    <TextView
+                        android:id="@+id/course15"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/text_view_border"/>
+                    <TextView
+                        android:id="@+id/course16"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/text_view_border"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:layout_width="19dp"
+                        android:text="第二节"
+                        android:gravity="center_vertical"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/course20"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/text_view_border"/>
+                    <TextView
+                        android:id="@+id/course21"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/text_view_border"/>
+
+                    <TextView
+                        android:id="@+id/course22"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/text_view_border"/>
+
+                    <TextView
+                        android:id="@+id/course23"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/text_view_border"/>
+
+                    <TextView
+                        android:id="@+id/course24"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/text_view_border"/>
+
+                    <TextView
+                        android:id="@+id/course25"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/text_view_border"/>
+                    <TextView
+                        android:id="@+id/course26"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/text_view_border"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:layout_width="19dp"
+                        android:text="第三节"
+                        android:gravity="center_vertical"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/course30"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/text_view_border"/>
+                    <TextView
+                        android:id="@+id/course31"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/text_view_border"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/course32"
+                        android:layout_width="0dp"
+                        android:background="@drawable/text_view_border"
+                        android:layout_height="100dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/course33"
+                        android:background="@drawable/text_view_border"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/course34"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/text_view_border"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/course35"
+                        android:layout_width="0dp"
+                        android:background="@drawable/text_view_border"
+                        android:layout_height="100dp"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/course36"
+                        android:layout_width="0dp"
+                        android:background="@drawable/text_view_border"
+                        android:layout_height="100dp"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:layout_width="19dp"
+                        android:text="第四节"
+                        android:gravity="center_vertical"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/course40"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/text_view_border"
+                        android:layout_weight="1" /><TextView
+                    android:id="@+id/course41"
+                    android:layout_width="0dp"
+                    android:background="@drawable/text_view_border"
+                    android:layout_height="100dp"
+                    android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/course42"
+                        android:layout_width="0dp"
+                        android:background="@drawable/text_view_border"
+                        android:layout_height="100dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/course43"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/text_view_border"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/course44"
+                        android:layout_width="0dp"
+                        android:background="@drawable/text_view_border"
+                        android:layout_height="100dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/course45"
+                        android:layout_width="0dp"
+                        android:background="@drawable/text_view_border"
+                        android:layout_height="100dp"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/course46"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/text_view_border"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:layout_width="19dp"
+                        android:text="第五节"
+                        android:gravity="center_vertical"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/course50"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/text_view_border"
+                        android:layout_weight="1" /><TextView
+                    android:id="@+id/course51"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/text_view_border"
+                    android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/course52"
+                        android:layout_width="0dp"
+                        android:background="@drawable/text_view_border"
+                        android:layout_height="100dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/course53"
+                        android:background="@drawable/text_view_border"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/course54"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/text_view_border"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/course55"
+                        android:layout_width="0dp"
+                        android:background="@drawable/text_view_border"
+                        android:layout_height="100dp"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/course56"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/text_view_border"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:layout_width="19dp"
+                        android:text="第六节"
+                        android:gravity="center_vertical"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/course60"
+                        android:layout_width="0dp"
+                        android:background="@drawable/text_view_border"
+                        android:layout_height="100dp"
+                        android:layout_weight="1" /><TextView
+                    android:id="@+id/course61"
+                    android:layout_width="0dp"
+                    android:background="@drawable/text_view_border"
+                    android:layout_height="100dp"
+                    android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/course62"
+                        android:layout_width="0dp"
+                        android:background="@drawable/text_view_border"
+                        android:layout_height="100dp"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/course63"
+                        android:layout_width="0dp"
+                        android:background="@drawable/text_view_border"
+                        android:layout_height="100dp"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/course64"
+                        android:layout_width="0dp"
+                        android:background="@drawable/text_view_border"
+                        android:layout_height="100dp"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/course65"
+                        android:layout_width="0dp"
+                        android:background="@drawable/text_view_border"
+                        android:layout_height="100dp"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/course66"
+                        android:layout_width="0dp"
+                        android:background="@drawable/text_view_border"
+                        android:layout_height="100dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </HorizontalScrollView>
 </LinearLayout>
