@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#dedede"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="8dp"
+    android:background="#fff"
+    android:paddingRight="18dp">
+
+    <ImageView
+        android:id="@+id/usericon"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        app:srcCompat="@drawable/bgi1" />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="45dp"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:text="name"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/usericon"
+        android:layout_alignLeft="@+id/usericon"
+        android:layout_alignStart="@+id/usericon"
+        android:layout_alignRight="@+id/usericon"
+        android:layout_alignEnd="@+id/usericon" />
+
+    <TextView
+        android:id="@+id/themeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:textSize="16sp"
+        android:textColor="#222"
+        android:layout_alignTop="@+id/usericon"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_toRightOf="@+id/usericon"
+        android:text="title"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/themeContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="_content_content_content_content_content_content_content_content_content_content_content"
+        android:maxLines="2"
+        android:textColor="#666"
+        android:layout_alignBottom="@+id/username"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="5dp"
+        android:layout_alignLeft="@+id/themeTitle"
+        android:layout_alignStart="@+id/themeTitle" />
+
+</RelativeLayout>
+</LinearLayout>

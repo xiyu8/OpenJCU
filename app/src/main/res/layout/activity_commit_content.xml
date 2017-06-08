@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#dddddd"
+    tools:context="com.example.openjcu.m_home.communication.CommitContentActivity">
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/shadowbgi_light"
+        android:orientation="vertical"
+        android:layout_weight="0.44">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:id="@+id/myTitlel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:textSize="18sp"
+                android:textColor="#555"
+                android:text="标   题 ："
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_above="@+id/myContent" />
+
+            <EditText
+                android:id="@+id/myTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:hint="输入标题"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:layout_toRightOf="@+id/myTitlel"
+                android:layout_toEndOf="@+id/myTitlel" />
+
+            <!--<EditText-->
+                <!--android:id="@+id/myTitle"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:hint="输入标题"-->
+                <!--android:ems="10"-->
+                <!--android:background="@drawable/bgi1"-->
+                <!--android:inputType="textPersonName"-->
+                <!--android:layout_marginBottom="6dp"-->
+                <!--android:layout_toRightOf="@+id/myTitlel"-->
+                <!--android:layout_toEndOf="@+id/myTitlel" />-->
+
+            <EditText
+                android:id="@+id/myContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:ems="10"
+                android:gravity="start"
+                android:maxLines="9"
+                android:lines="9"
+                android:inputType="textMultiLine"
+                android:hint="输入内容"
+                android:padding="8dp"
+                android:background="@drawable/bgi"
+                android:layout_below="@+id/myTitle" />
+
+            <!--<RadioGroup-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_alignParentBottom="true"-->
+                <!--android:layout_alignParentLeft="true"-->
+                <!--android:layout_alignParentStart="true"-->
+                <!--android:id="@+id/radioGroup" >-->
+
+            <!--</RadioGroup>-->
+
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:background="#fff">
+        <Button
+            android:id="@+id/addPic"
+            android:onClick="onClick"
+            android:layout_height="40dp"
+            android:layout_width="100dp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="添加图片"/>
+            <ImageView
+                android:id="@+id/previewUploadPic1"
+                android:layout_width="45dp"
+                android:layout_marginLeft="8dp"
+                android:onClick="onClick"
+                android:background="@drawable/addpic"
+                android:layout_height="45dp" />
+            <ImageView
+                android:id="@+id/previewUploadPic2"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="5dp"
+                android:onClick="onClick"
+                android:background="@drawable/addpic"/>
+            <ImageView
+                android:id="@+id/previewUploadPic3"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="5dp"
+                android:onClick="onClick"
+                android:background="@drawable/addpic"/>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="bottom"
+        android:layout_weight="1">
+        <Button
+            android:id="@+id/commit"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:onClick="onClick"
+            android:textSize="20sp"
+            android:textColor="#fff"
+            android:text="发          布"
+            android:background="#ff5a5a"/>
+    </LinearLayout>
+
+
+</LinearLayout>

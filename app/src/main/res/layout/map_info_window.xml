@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="150dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/map_window"
+    android:layout_height="120dp"
+    tools:context=".m_home.home_map.HomeMapActivity"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0.5dp"
+        android:orientation="horizontal"
+        android:gravity="left"
+        android:layout_height="match_parent">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#999999"/>
+    </LinearLayout>
+
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:background="#fff"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#999999"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#e1e1e1"
+            android:text="食堂一"
+            android:textColor="#000"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:paddingLeft="20dp"
+            android:textSize="18sp"/>
+    </LinearLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#999999"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:background="#fff"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#2fa59d"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            android:id="@+id/go"
+            android:onClick="onClick"
+            android:text="带我去这儿"/>
+    </LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#999999"/>
+
+</LinearLayout>
+
+
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="0.5dp"
+        android:orientation="horizontal"
+        android:gravity="left"
+        android:layout_height="match_parent">
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#999999"/>
+    </LinearLayout>
+
+
+</LinearLayout>
