@@ -168,7 +168,8 @@ public class MapFragment extends Fragment {
     @Override    //相当于在Activity的setContentView之前写的内容
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        SDKInitializer.initialize(getActivity().getApplicationContext());
+        SDKInitializer.initialize(
+                getActivity().getApplicationContext());
         View view=inflater.inflate(R.layout.fragment_map, container, false);
         return view;
 

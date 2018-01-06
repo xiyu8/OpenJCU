@@ -65,7 +65,6 @@ public class UserDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_detail);
-        getSupportActionBar().hide();
         initView();
 //        new Thread(new Runnable() {
 //            @Override

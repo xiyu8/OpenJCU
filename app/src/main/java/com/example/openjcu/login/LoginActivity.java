@@ -234,6 +234,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "用户名或密码错误，请重新输入", Toast.LENGTH_SHORT).show();
                     break;
                 case 106:  //教务网验证异常
+                    Log.e("AAAAAA", "rrrrrrrrrrrrrrrrrrrr" + responseString);
                     ((TextView) findViewById(R.id.showhtml)).setText(responseString);
                     break;
                 case 6:
@@ -430,7 +431,7 @@ public class LoginActivity extends AppCompatActivity {
                     Message message = new Message();
                     message.what = 105;
                     mHandler.sendMessage(message);
-                }else if(responseString.contains("网上选课") && responseString.contains("等级考试报名")){ //教务网登录成功
+                }else if(responseString.contains("欢迎您") && responseString.contains("退出")){ //教务网登录成功
                     String temp[]=responseString.split("id=\"xhxm\">|同学</span>");
                     tureName=temp[1];
                     Log.e("OpenJCU", "BBBBBBBBBBBBBBBBBBB"+temp[1]);
