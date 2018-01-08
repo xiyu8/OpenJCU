@@ -124,6 +124,7 @@ public class HomeFragment extends Fragment{
     private ScheduledExecutorService scheduledExecutorService;  //定时器
     private int currentItem = 5000;
     boolean nowAction = false;// 当前用户正在滑动视图
+    //用scheduledExecutorService，使ViewPager呈现的page定时变化：定时器在子线程定时发handle，接收到handle后改变呈现的Page
     private Handler handler = new Handler() {      //定时器用于更新dots的handler
         public void handleMessage(Message msg) {
             viewPager.setCurrentItem(currentItem);
@@ -190,6 +191,7 @@ public class HomeFragment extends Fragment{
         viewPager.setCurrentItem(Integer.MAX_VALUE / 4);
         /* *************************************************************************************** */
 
+        //home页面的普通点击(except viewpager's)
         lst=new OnFragViewClickListener();
         A.findViewById(R.id.map_test).setOnClickListener(lst);
         A.findViewById(R.id.map_test1).setOnClickListener(lst);
@@ -207,9 +209,9 @@ public class HomeFragment extends Fragment{
 
 
         //swipeReflash
-        aboutSwipeReflash();
+        aboutSwipeReflash();//set swipereflash event
+        //为请求viewpager的内容做准备
         client=new OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS).cache(new Cache(new File(A.getExternalCacheDir(), "okhttpcache"), 100 * 1024 * 1024)).build();
-
         request[0]= new Request.Builder().cacheControl(CacheControl.FORCE_NETWORK).url(addr1).build();
         request[1] = new Request.Builder().cacheControl(CacheControl.FORCE_NETWORK).url(addr+"p1.png").build();
         request[2] = new Request.Builder().cacheControl(CacheControl.FORCE_NETWORK).url(addr+"p2.png").build();
@@ -225,16 +227,21 @@ public class HomeFragment extends Fragment{
     }
 
     /***************************************下拉刷新************************************************************/
+
     public SwipeRefreshLayout swp;
 
     public void aboutSwipeReflash() {
 
         swp = (SwipeRefreshLayout) A.findViewById(R.id.h_swp_reflash);
-        //      swp.setColorSchemeColors(Color.argb(1,200,1,1));
+//        swp.setColorSchemeColors(Color.argb(1,200,1,1));
+        swp.setColorSchemeResources(android.R.color.holo_blue_bright
+                ,android.R.color.holo_green_light
+                ,android.R.color.holo_orange_light
+                ,android.R.color.holo_red_light);
+//        swp .setProgressBackgroundColorSchemeColor(Color.parseColor("#f34649"));
         swp.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
                 ref();
             }
         });
@@ -244,7 +251,7 @@ public class HomeFragment extends Fragment{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                int a=requestLogic();
+                int a=requestLogic();  //刷新在子线程，网络请求和刷新在同一个线程(网络请求没有另外开线程)
                 Log.e("OpenJCU",")))))))))))))))))))))"+a);
                 if(a==0){
                     Message msg=new Message();
@@ -260,9 +267,8 @@ public class HomeFragment extends Fragment{
 
     /***********************************网络请求**********************************************/
 
-
+    //处理网络请求状态的handle
     private Handler mHandler = new Handler() {
-
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -472,15 +478,15 @@ public class HomeFragment extends Fragment{
     }
 
     public class OnPageClickListener implements View.OnClickListener {
-        Intent in = new Intent(getActivity(), Tab1Activity.class);
+        Intent inToPage = new Intent(getActivity(), Tab1Activity.class);
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.pg1:  getActivity().startActivity(in);  break;
-                case R.id.pg2:  getActivity().startActivity(in);  break;
-                case R.id.pg3:  getActivity().startActivity(in);  break;
-                case R.id.pg4:  getActivity().startActivity(in);  break;
-                case R.id.pg5:  getActivity().startActivity(in);  break;
+                case R.id.pg1:  getActivity().startActivity(inToPage);  break;
+                case R.id.pg2:  getActivity().startActivity(inToPage);  break;
+                case R.id.pg3:  getActivity().startActivity(inToPage);  break;
+                case R.id.pg4:  getActivity().startActivity(inToPage);  break;
+                case R.id.pg5:  getActivity().startActivity(inToPage);  break;
                 default:  break;
             }
         }
