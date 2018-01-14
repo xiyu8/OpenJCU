@@ -76,32 +76,26 @@ public class BeepService extends Service {
 //            myThread = new MyThread();
 //        }
 //        myThread.start();
-
-
-
-
-        Log.e("OpenJCU","AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        if(sss==null){
+        if(sss==null){  //本service是否和binder绑定
             stopSelf();
         }else {
             new Thread(new Runnable() {
                 @Override
-                public void run() {
-                    // 开始执行后台任务
+                public void run() {// 开始执行后台任务
                     beep();
-
                 }
             }).start();
-        AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        int anHour = 4* 1000; // 这是10 秒的毫秒数
-        long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
-        Intent i = new Intent(BeepService.this, BeepService.class);
-        i.putExtra("lauchFromNoti", "yes");
-        i.putExtra("groupName", groupName);
-        i.putExtra("IMME", IMME);
-        PendingIntent pi = PendingIntent.getService(BeepService.this, 0, i, 0);
+        AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE); //倒计时
+        int fourSecond = 4* 1000; // 这是10 秒的毫秒数
+        long triggerAtTime = SystemClock.elapsedRealtime() + fourSecond;
+        Intent in = new Intent(BeepService.this, BeepService.class);
+        in.putExtra("lauchFromNoti", "yes");
+        in.putExtra("groupName", groupName);
+        in.putExtra("IMME", IMME);
+        PendingIntent pi = PendingIntent.getService(BeepService.this, 0, in, 0);
         manager.cancel(pi);
-        manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, pi);}
+        manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, pi); //1、把service放入intent  2、把intent放入PendingIntent  3、pendingIntent放入AlarmManager
+        }
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -112,7 +106,6 @@ public class BeepService extends Service {
         public void run() {
             // 开始执行后台任务
             beep();
-            Log.e("OpenJCU","AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
             int anHour = 4* 1000; // 这是10 秒的毫秒数
             long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
@@ -294,7 +287,7 @@ public class BeepService extends Service {
         super.onDestroy();
     }
     /**
-     * 定位SDK监听函数
+     * 定位SDK监听的回调
      */
     public class MyLocationListenner implements BDLocationListener {
 
@@ -305,7 +298,6 @@ public class BeepService extends Service {
 //            if (location == null || mMapView == null) {
 //                return;
 //            }
-
             Log.e("OpenJCU","获取本地位置信息"+location.getLatitude()+"__"+location.getLongitude());
             MyLocationData locData = new MyLocationData.Builder()
                     .accuracy(location.getRadius())

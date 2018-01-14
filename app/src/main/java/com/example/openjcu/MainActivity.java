@@ -58,12 +58,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         fragmentManager = getFragmentManager();
-        // 第一次启动时选中第0个tab
-
         initViews();
-        setTabSelection(0);
+        setTabSelection(0);  // 第一次启动时选中第0个tab
     }
 
 
@@ -99,6 +96,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
                 .bitmapTransform(new CropCircleTransformation(this))
 //                .bitmapTransform(new BlurTransformation(this, 25), new CropCircleTransformation(this))
                 .into((ImageView) findViewById(R.id.userMainIcon));
+        //是否登陆了
         if(getLogin()) {
             Glide.with(this)
                     .load(app_url+"userIcon/" + getUserId()+".jpg")
@@ -119,9 +117,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
         setTabSelection(2);
 
 
-        Intent in = getIntent();
+        Intent in = getIntent();   //通过通知栏进入mainactivity的，要显示位置
         String ln=in.getStringExtra("lauchFromNoti");
-
         Log.e("OpenJCU", "GGGGGGGGGGGG"+ln);
         if (ln!=null) {
             teamFragment.requestForJoinGroup(in.getStringExtra("groupName"),in.getStringExtra("IMME"),"30.733399,103.955637");
@@ -275,10 +272,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
     public void onFragmentInteraction(Uri uri) { }
 /****************************************************************************************************************/
 
-    @Override
+    @Override  //login result and user detail info result
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode){
-            case 1: //login
+            case 1: //login result
                 if(resultCode==RESULT_OK){
                     String da=data.getStringExtra("name");
                     drawername.setText(da);
@@ -298,7 +295,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
 
             userMainIcon.setClickable(true);
                 break;
-            case 2: //detail
+            case 2: //after into user detail,and then back:if user change their info,then we will update in main activity.
                 if(requestCode==RESULT_OK) {
                     if (getLogin()) {
                         Glide.with(MainActivity.this)
@@ -338,7 +335,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
 //            userMainIcon.setClickable(false);
 //        }
 
-
         Glide.with(MainActivity.this)
                 .load(app_url+"userIcon/" + getUserId()+".jpg"+"?"+System.currentTimeMillis())
                 //.override(100, 100) //图片大小
@@ -354,13 +350,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
 
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed() {   //按返回键，后台挂起
         goHome(MainActivity.this);
 
     }
 
 //    public ServiceConnection connection;
-//
 //    public BeepService.MyBinder bindIntent=null;
     @Override
     protected void onDestroy() {
