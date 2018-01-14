@@ -76,6 +76,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
     public ImageView userMainIcon;
     private void initViews() {
 
+
         home = findViewById(R.id.message_layout);
         map = findViewById(R.id.contacts_layout);
         team = findViewById(R.id.team);
@@ -100,7 +101,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
                 .into((ImageView) findViewById(R.id.userMainIcon));
         if(getLogin()) {
             Glide.with(this)
-                    .load("http://192.168.155.1/www/OpenJCU/userIcon/" + getUserId()+".jpg")
+                    .load(app_url+"userIcon/" + getUserId()+".jpg")
                    // .override(100, 100) //图片大小
                     //.centerCrop()   //等比缩放
                     .bitmapTransform(new CropCircleTransformation(this))
@@ -282,7 +283,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
                     String da=data.getStringExtra("name");
                     drawername.setText(da);
                     Glide.with(this)
-                            .load("http://192.168.155.1/www/OpenJCU/userIcon/" + getUserId()+".jpg"+"?"+System.currentTimeMillis())
+                            .load(app_url+"userIcon/" + getUserId()+".jpg"+"?"+System.currentTimeMillis())
                             //.override(100, 100) //图片大小
                             .centerCrop()   //等比缩放
                             //.bitmapTransform(new BlurTransformation(this, 25), new CropCircleTransformation(this))
@@ -301,7 +302,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
                 if(requestCode==RESULT_OK) {
                     if (getLogin()) {
                         Glide.with(MainActivity.this)
-                                .load("http://192.168.155.1/www/OpenJCU/userIcon/" + getUserId()+".jpg"+"?"+System.currentTimeMillis())
+                                .load(app_url+"userIcon/" + getUserId()+".jpg"+"?"+System.currentTimeMillis())
                                 //.override(100, 100) //图片大小
                                 .centerCrop()   //等比缩放
                                 //.bitmapTransform(new BlurTransformation(this, 25), new CropCircleTransformation(this))
@@ -312,7 +313,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
                                 .into(userMainIcon);
 
                         Glide.with(MainActivity.this)
-                                .load("http://192.168.155.1/www/OpenJCU/userIcon/" + getUserId() + ".jpg"+"?"+System.currentTimeMillis())
+                                .load(app_url+"userIcon/" + getUserId() + ".jpg"+"?"+System.currentTimeMillis())
                                 .placeholder(R.drawable.bgi1)
                                 .error(R.drawable.bgi1)
                                 .into(userMainIcon);
@@ -339,7 +340,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,T
 
 
         Glide.with(MainActivity.this)
-                .load("http://192.168.155.1/www/OpenJCU/userIcon/" + getUserId()+".jpg"+"?"+System.currentTimeMillis())
+                .load(app_url+"userIcon/" + getUserId()+".jpg"+"?"+System.currentTimeMillis())
                 //.override(100, 100) //图片大小
                 .centerCrop()   //等比缩放
                 //.bitmapTransform(new BlurTransformation(this, 25), new CropCircleTransformation(this))

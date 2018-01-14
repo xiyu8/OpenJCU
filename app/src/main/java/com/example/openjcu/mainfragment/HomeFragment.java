@@ -117,8 +117,8 @@ public class HomeFragment extends Fragment{
     ArrayList viewList; //装每个viewlayout的容器
     private PagerTabStrip pagerTabStrip; //pager头
     private List<View> dots;
-    String[] home_pager_title={"","","","",""};
-    String[] home_pager_surl={"","","","",""};
+    String[] home_pager_title=new String[5];
+    String[] home_pager_surl=new String[5];
     TextView pageText;
     MyViewPagerAdapter pagerAdapter;
     private ScheduledExecutorService scheduledExecutorService;  //定时器

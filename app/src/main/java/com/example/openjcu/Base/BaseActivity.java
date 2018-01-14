@@ -7,9 +7,11 @@ import com.example.openjcu.R;
 
 public class BaseActivity extends AppCompatActivity {
 
+    public String app_url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+        app_url = getResources().getString(R.string.app_url);
     }
 }

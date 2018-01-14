@@ -13,6 +13,7 @@
        android:orientation="vertical">
 
 
+        <!--title area-->
        <LinearLayout
            android:layout_width="match_parent"
            android:background="?attr/colorPrimary"
@@ -21,11 +22,11 @@
            <LinearLayout
                android:layout_width="wrap_content"
                android:layout_height="match_parent">
-               <TextView
-                   android:layout_width="50dp"
-                   android:layout_height="match_parent"
-                   android:gravity="center"
-                   android:text="sdswd"/>
+               <ImageView
+                   android:layout_marginLeft="10dp"
+                   android:layout_width="35dp"
+                   android:layout_height="50dp"
+                   android:src="@drawable/team_ac1"/>
            </LinearLayout>
            <LinearLayout
                android:layout_width="0dp"
@@ -61,31 +62,14 @@
            </LinearLayout>
        </LinearLayout>
 
+       <!--group area-->
        <LinearLayout
            android:id="@+id/groupArea"
            android:layout_width="match_parent"
            android:layout_height="0dp"
            android:orientation="vertical"
            android:layout_weight="1">
-
        </LinearLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
    </LinearLayout>

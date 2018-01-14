@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.openjcu.mainfragment.MapFragment">
+    <!--mapView-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,6 +18,7 @@
         </com.baidu.mapapi.map.MapView>
 
     </RelativeLayout>
+    <!--地图上 第一层覆盖：searchButton-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -46,27 +48,25 @@
             />
         </LinearLayout>
     </LinearLayout>
+    <!--地图上的第二层覆盖：send chat message-->
     <LinearLayout
-        android:visibility="gone"
         android:layout_marginTop="60dp"
         android:id="@+id/chatArea"
         android:orientation="vertical"
         android:layout_width="280dp"
         android:layout_marginLeft="105dp"
         android:layout_height="match_parent">
+        <!--message content area:The message will be innered in this linearlayout-->
         <LinearLayout
             android:id="@+id/chatItemArea"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
-
         </LinearLayout>
 
 
-
-
-        //commit comment part
+        <!--commit comment part-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

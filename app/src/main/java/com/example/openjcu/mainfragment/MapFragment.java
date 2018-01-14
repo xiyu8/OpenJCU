@@ -193,6 +193,7 @@ public class MapFragment extends Fragment {
     LinearLayout chatItemArea;
     LinearLayout chatArea;
     public void init(){
+        //prepare for chat area
         app_url = A.getResources().getString(R.string.app_url);
         myOnClickListener=new MyOnClickListener();
         edit_chat_item = (EditText) A.findViewById(R.id.edit_chat_item);
@@ -204,8 +205,8 @@ public class MapFragment extends Fragment {
         hideChatArea.setOnClickListener(myOnClickListener);
 
 
+        //prepare for controlling map which is include formula route and pop window etc.
         mapView=(MapView)A.findViewById(R.id.bmapView);
-
         LayoutInflater inflater=A.getLayoutInflater();
         v1 = inflater.inflate(R.layout.fragment_map_pop_window, null);
         Button vvv=(Button)v1.findViewById(R.id.go);
@@ -227,7 +228,7 @@ public class MapFragment extends Fragment {
 
     }
 
-    int i=0;
+    int i=0;                //chat area click event:hidding and sendding
     public class MyOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
@@ -304,11 +305,10 @@ public class MapFragment extends Fragment {
 
 
 
-
+    //init map condition
     public void initMap(){
         mBaiduMap=mapView.getMap();
        // mBaiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);//卫星地图
-
 
         //缩放地图
         MapStatusUpdate mSup = MapStatusUpdateFactory.zoomTo(19f);  //zoomBy zoomIn zoomOut
@@ -330,17 +330,11 @@ public class MapFragment extends Fragment {
 
 
     View v1;  //mapPopWindow
-    /**
-     * MapView 是地图主控件
-     */
+    // /MapView 是地图主控件
     private MapView mMapView;
-    /**
-     * 当前地点击点
-     */
+    //当前地点击点
     private LatLng currentPt;
-    /**
-     * 控制按钮
-     */
+    //控制按钮
     private Button zoomButton;
     private Button rotateButton;
     private Button overlookButton;
@@ -348,19 +342,13 @@ public class MapFragment extends Fragment {
 
     private String touchType;
 
-    /**
-     * 用于显示地图状态的面板
-     */
+    //用于显示地图状态的面板
     private TextView mStateBar;
-    /**
-     * 对地图事件的消息响应
-     */
     InfoWindow mInfoWindow;
+    //设置地图的各种事件
     private void initListener() {
 
-
         mBaiduMap.setOnMapTouchListener(new BaiduMap.OnMapTouchListener() {
-
             @Override
             public void onTouch(MotionEvent event) {
 
@@ -527,9 +515,9 @@ public class MapFragment extends Fragment {
         }
     }
 
-    /**
-     * 更新地图状态显示面板
-     */
+
+
+//    更新地图状态显示面板
 //    private void updateMapState() {
 //        if (mStateBar == null) {
 //            return;

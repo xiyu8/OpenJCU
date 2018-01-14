@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText usernameEdit,pwdEidt,checkingCodeEdit;
     TextView checkingCode;
     ImageView checkImage;
-    public void initView(){
+    public void initView(){  //partly for login UI changce
         app_url=getResources().getString(R.string.app_url);
         login = (Button) findViewById(R.id.login);
         register = (Button) findViewById(R.id.register); register.setVisibility(View.GONE);
@@ -79,16 +79,12 @@ public class LoginActivity extends AppCompatActivity {
         checkingCode = (TextView) findViewById(R.id.checkingCode);
         checkImage=(ImageView) findViewById(R.id.checkImage);
 
-
-
         login.setVisibility(View.VISIBLE);
         register.setVisibility(View.GONE);
         confirm.setVisibility(View.GONE);
         checkingCode.setVisibility(View.GONE);
         checkImage.setVisibility(View.GONE);
         checkingCodeEdit.setVisibility(View.GONE);
-
-
     }
 
     Boolean firstLogin=true;
@@ -239,7 +235,7 @@ public class LoginActivity extends AppCompatActivity {
                     break;
                 case 6:
                     ((TextView) findViewById(R.id.showhtml)).setText("Error"); break;
-                case 7://
+                case 7://呈现“换一张”验证码
                     ImageView checkImage=(ImageView)findViewById(R.id.checkImage);
                     checkImage.setImageBitmap(bitmap);
                     break;
@@ -390,7 +386,7 @@ public class LoginActivity extends AppCompatActivity {
 
     String responseString="";
     String checkCode;
-    public void loginjcjw(){
+    public void loginjcjw(){   //构造新的登陆教务网请求
 
         if(!isOnline(LoginActivity.this)){
             Toast.makeText(LoginActivity.this, "请连接网络", Toast.LENGTH_SHORT).show(); return;
@@ -419,6 +415,7 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     response=client.newCall(request).execute();
                     responseString=response.body().string();
+                    Log.e("OpenJCU", responseString);
                 } catch (IOException e) {
                     e.printStackTrace();
 
@@ -472,20 +469,19 @@ public class LoginActivity extends AppCompatActivity {
             public void run() {
 
                 /**************************************************************************/
+                //请求教务网登陆页面
                 request= new Request.Builder().cacheControl(CacheControl.FORCE_NETWORK).url("http://jwweb.scujcc.cn").build();
-
                 try {
                     response=client.newCall(request).execute();
                     responseString=response.body().string();
                 } catch (IOException e) {
                     e.printStackTrace();
-
                     Message message = new Message();
                     message.what = 10;
                     mHandler.sendMessage(message);
-
                     return;
                 }
+                //提取登陆页面这个session中有用的响应头
                 Headers headers=response.headers();
                 List<String> cookies = headers.values("Set-Cookie");
                 String session = cookies.get(0);
@@ -496,7 +492,7 @@ public class LoginActivity extends AppCompatActivity {
                 /**************************************************************************/
 
                 //http协议：服务器往客户端写 cookie信息 包含在 响应头的 Set-Cookie 字段中
-                /***************************每个验证码对应一个cookie***********************************************/
+                /***************************每个验证码对应一个cookie***********************************************//*刷新验证码，记录验证码的cookie*/
                 request = new Request.Builder().cacheControl(CacheControl.FORCE_NETWORK).url("http://jwweb.scujcc.cn/CheckCode.aspx").build();
                 byte[] Picture_bt1 = null;
                 try {
