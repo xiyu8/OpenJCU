@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">OpenJCU</string>
+<string name="app_name">OpenJCU</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="app_url">http://www.openzero.tech/www/OpenJCU/</string>
+<!-- TODO: Remove or change this placeholder text -->
+<string name="hello_blank_fragment">Hello blank fragment</string>
+<string name="app_url">http://192.168.191.1/www/OpenJCU/</string>
 </resources>
