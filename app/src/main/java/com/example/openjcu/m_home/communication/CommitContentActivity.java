@@ -136,7 +136,7 @@ public class CommitContentActivity extends AppCompatActivity {
 
     int category;
     public int getCategory(){
-        int m=0;
+        int m=1;
         for (int i=0;i<9;i++){
             if(area[i].isChecked()){
                 m=i+1;
@@ -576,28 +576,19 @@ public class CommitContentActivity extends AppCompatActivity {
     上传文件
      */
     int picsQuantity=0; Boolean p1=false,p2=false,p3=false;
-    public interface FileUploadService {
+    public interface FileUploadService { //接口作用：定义上传的内容：请求参数 字段名、二进制文件、服务器响应接口、
         // 上传单个文件
         @Multipart
         @POST("processResouce/process_theme_pics.php")
-        Call<ResponseBody> uploadFile(
-                @Part("themeId") RequestBody description,
-                @Part MultipartBody.Part file);
+        Call<ResponseBody> uploadFile(@Part("themeId") RequestBody description, @Part MultipartBody.Part file);
 
          //上传多个文件
         @Multipart
         @POST("processResouce/process_theme_pics.php")
-        Call<ResponseBody> uploadMultipleTwoFile(
-                @Part("themeId") RequestBody description,
-                @Part MultipartBody.Part file1,
-                @Part MultipartBody.Part file2);
+        Call<ResponseBody> uploadMultipleTwoFile(@Part("themeId") RequestBody description, @Part MultipartBody.Part file1, @Part MultipartBody.Part file2);
         @Multipart
         @POST("processResouce/process_theme_pics.php")
-        Call<ResponseBody> uploadMultipleThreeFile(
-                @Part("themeId") RequestBody description,
-                @Part MultipartBody.Part file1,
-                @Part MultipartBody.Part file2,
-                @Part MultipartBody.Part file3);
+        Call<ResponseBody> uploadMultipleThreeFile(@Part("themeId") RequestBody description, @Part MultipartBody.Part file1, @Part MultipartBody.Part file2, @Part MultipartBody.Part file3);
     }
 
 
@@ -608,7 +599,7 @@ public class CommitContentActivity extends AppCompatActivity {
                 MediaType.parse(MULTIPART_FORM_DATA), descriptionString);
     }
     @NonNull  // MultipartBody.Part 用于填充 name filename file Content-Type
-    private MultipartBody.Part prepareFilePart(String partName, File cacheFile) {
+    private MultipartBody.Part prepareFilePart(String partName, File cacheFile) {//构建 MultipartBody.Part实体部分,包括：实体头的文件名、实体头的key、实体头的二进制文件
         File file = new File(imagePath);
         // 为file建立RequestBody实例
         RequestBody requestFile = RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), cacheFile);
@@ -618,7 +609,7 @@ public class CommitContentActivity extends AppCompatActivity {
     //正式上传的代码
     public void requestForUpLoadFile() { //指定url
         int picsQuantity=0;
-        if(file1Uri==null&&file2Uri==null&file3Uri==null) return;
+        if(file1Uri==null&&file2Uri==null&&file3Uri==null) return;
         Retrofit retrofit = new Retrofit.Builder().baseUrl(app_url).addConverterFactory(GsonConverterFactory.create()).build();
         FileUploadService service = retrofit.create(FileUploadService.class); // 创建上传的service实例
         MultipartBody.Part body[]=new MultipartBody.Part[3];
@@ -658,3 +649,9 @@ public class CommitContentActivity extends AppCompatActivity {
     }
 
 }
+
+
+//retrofit:1、创建Service接口：在接口的方法中配置基本参数，响应的url、请求 参数key 、有几个实体头 etc.
+//         2、借助retrofit创建Service接口实例
+//         3、填充Service接口(并发出异步请求)：3.1构建post参数部分、构建实体二进制文件部分 3.2填充Service接口
+//         (4、发出请求，接收响应)
